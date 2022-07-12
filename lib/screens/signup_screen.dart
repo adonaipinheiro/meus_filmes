@@ -17,7 +17,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   late TextEditingController _passController;
   bool checkPass = true;
 
-  void goToSignUp(BuildContext context) {
+  void goToLogin(BuildContext context) {
     Navigator.pushReplacementNamed(context, '/login');
   }
 
@@ -196,7 +196,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     onPressed: () {
-                      goToSignUp(context);
+                      goToLogin(context);
                     },
                     child: const Text('Já possui conta? Entrar'),
                   )
