@@ -109,7 +109,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: 150,
                   ),
                   Text(
-                    "Meus Filmes",
+                    "Melhores Filmes",
                     style: GoogleFonts.dancingScript(
                       fontSize: 36,
                       fontWeight: FontWeight.bold,

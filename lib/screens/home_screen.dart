@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           backgroundColor: const Color(0xff8c59a4),
           title: Text(
-            "Meus Filmes",
+            "Melhores Filmes",
             style: GoogleFonts.dancingScript(
               fontSize: 24,
               fontWeight: FontWeight.bold,

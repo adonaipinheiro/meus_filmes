@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "Meus Filmes",
+                  "Melhores Filmes",
                   style: GoogleFonts.dancingScript(
                     fontSize: 36,
                     fontWeight: FontWeight.bold,

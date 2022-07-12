@@ -26,7 +26,7 @@ class MeusFilmes extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Meus Filmes',
+      title: 'Melhores Filmes',
       initialRoute: '/',
       routes: {
         '/': (context) => const SplashScreen(),

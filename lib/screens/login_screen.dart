@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 150,
                   ),
                   Text(
-                    "Meus Filmes",
+                    "Melhores Filmes",
                     style: GoogleFonts.dancingScript(
                       fontSize: 36,
                       fontWeight: FontWeight.bold,
