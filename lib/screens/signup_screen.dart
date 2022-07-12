@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:meus_filmes/widgets/separator_widget.dart';
+import 'package:meus_filmes/widgets/text_input_custom.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -17,11 +19,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   late TextEditingController _passController;
   bool checkPass = true;
 
-  void goToLogin(BuildContext context) {
+  void _goToLogin(BuildContext context) {
     Navigator.pushReplacementNamed(context, '/login');
   }
 
-  void checkPassFunc() {
+  void _checkPassFunc() {
     if (_passController.text != _repPassController.text) {
       setState(() {
         checkPass = false;
@@ -33,7 +35,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
-  Future<void> createUserWithEmailAndPass(BuildContext context) async {
+  Future<void> _createUserWithEmailAndPass(BuildContext context) async {
     CollectionReference users = FirebaseFirestore.instance.collection('users');
 
     try {
@@ -41,13 +43,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
           .createUserWithEmailAndPassword(
               email: _emailController.text, password: _passController.text);
 
-      users.add({
+      users.doc(userInfo.user?.uid).set({
         'full_name': _nameController.text,
         'email': _emailController.text,
         'uuid': userInfo.user?.uid
       });
 
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -96,7 +98,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: SizedBox(
-              height: MediaQuery.of(context).size.height,
+              height: MediaQuery.of(context).size.height - 40,
               width: MediaQuery.of(context).size.width,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -114,36 +116,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       color: const Color(0xff8c59a4),
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    controller: _nameController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      hintText: 'Nome completo',
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xff8c59a4))),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xff8c59a4))),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      hintText: 'E-mail',
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xff8c59a4))),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xff8c59a4))),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
+                  const Separator(),
+                  TextInputCustom(
+                      controller: _nameController, hintText: 'Nome completo'),
+                  const Separator(),
+                  TextInputCustom(
+                      controller: _emailController, hintText: 'E-mail'),
+                  const Separator(),
                   TextField(
                     controller: _passController,
                     obscureText: true,
                     onChanged: (_) {
-                      checkPassFunc();
+                      _checkPassFunc();
                     },
                     decoration: const InputDecoration(
                       hintText: 'Senha',
@@ -153,12 +137,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           borderSide: BorderSide(color: Color(0xff8c59a4))),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const Separator(),
                   TextField(
                     controller: _repPassController,
                     obscureText: true,
                     onChanged: (_) {
-                      checkPassFunc();
+                      _checkPassFunc();
                     },
                     decoration: InputDecoration(
                       errorText:
@@ -172,7 +156,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           borderSide: BorderSide(color: Color(0xff8c59a4))),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const Separator(),
                   TextButton(
                     style: TextButton.styleFrom(
                       padding: const EdgeInsets.all(16),
@@ -182,11 +166,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       textStyle: const TextStyle(fontSize: 16),
                     ),
                     onPressed: () {
-                      createUserWithEmailAndPass(context);
+                      _createUserWithEmailAndPass(context);
                     },
                     child: const Text('Cadastrar'),
                   ),
-                  const SizedBox(height: 16),
+                  const Separator(),
                   TextButton(
                     style: TextButton.styleFrom(
                       primary: const Color(0xff8c59a4),
@@ -196,7 +180,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     onPressed: () {
-                      goToLogin(context);
+                      _goToLogin(context);
                     },
                     child: const Text('Já possui conta? Entrar'),
                   )

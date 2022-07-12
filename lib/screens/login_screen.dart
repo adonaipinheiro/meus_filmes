@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:meus_filmes/widgets/separator_widget.dart';
+import 'package:meus_filmes/widgets/text_input_custom.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -79,29 +81,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: const Color(0xff8c59a4),
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  TextField(
+                  const Separator(),
+                  TextInputCustom(
                     controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      hintText: 'E-mail',
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xff8c59a4))),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xff8c59a4))),
-                    ),
+                    hintText: 'E-mail',
                   ),
-                  const SizedBox(height: 16),
-                  TextField(
+                  const Separator(),
+                  TextInputCustom(
                     controller: _passController,
+                    hintText: 'Senha',
                     obscureText: true,
-                    decoration: const InputDecoration(
-                      hintText: 'Senha',
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xff8c59a4))),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xff8c59a4))),
-                    ),
                   ),
                   const SizedBox(height: 16),
                   TextButton(

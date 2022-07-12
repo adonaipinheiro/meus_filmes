@@ -10,7 +10,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  Future<void> checkUserStatus(BuildContext context) async {
+  Future<void> _checkUserStatus(BuildContext context) async {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance
-        .addPostFrameCallback((_) => checkUserStatus(context));
+        .addPostFrameCallback((_) => _checkUserStatus(context));
   }
 
   @override
