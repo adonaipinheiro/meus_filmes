@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "174274823313",
+    "project_id": "meus-filmes-ebe1a",
+    "storage_bucket": "meus-filmes-ebe1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:174274823313:android:8c05adaddfbe10f260ab30",
+        "android_client_info": {
+          "package_name": "com.example.meus_filmes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "174274823313-5m89jsocdjiil6qld6vs5qfab3ukqkf0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCA2yPZV7nIYQy9CpiQA8On9TDEAqJDYWk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "174274823313-5m89jsocdjiil6qld6vs5qfab3ukqkf0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
