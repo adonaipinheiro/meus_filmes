@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
+import 'package:meus_filmes/main/factories/pages/home_screen_factory.dart';
+import 'package:meus_filmes/main/factories/pages/login_screen_factory.dart';
+import 'package:meus_filmes/main/factories/pages/splash_screen_factory.dart';
+import 'package:meus_filmes/ui/home/home_screen.dart';
+import 'package:meus_filmes/ui/login/login_screen.dart';
+import 'package:meus_filmes/ui/splash/splash_screen.dart';
 import 'firebase_options.dart';
-
-// Screens
-import 'package:meus_filmes/screens/splash_screen.dart';
-import 'package:meus_filmes/screens/login_screen.dart';
-import 'package:meus_filmes/screens/home_screen.dart';
-import 'package:meus_filmes/screens/signup_screen.dart';
+import 'package:get/get.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,16 +25,15 @@ class MeusFilmes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Melhores Filmes',
       initialRoute: SplashScreen.id,
-      routes: {
-        SplashScreen.id: (context) => const SplashScreen(),
-        LoginScreen.id: (context) => const LoginScreen(),
-        SignUpScreen.id: (context) => const SignUpScreen(),
-        HomeScreen.id: (context) => const HomeScreen(),
-      },
+      getPages: [
+        GetPage(name: SplashScreen.id, page: makeSplashScreen),
+        GetPage(name: LoginScreen.id, page: makeLoginScreen),
+        GetPage(name: HomeScreen.id, page: makeHomeScreen),
+      ],
     );
   }
 }

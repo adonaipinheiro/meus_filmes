@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:meus_filmes/presentation/login/login_presenter.dart';
 import 'package:meus_filmes/screens/signup_screen.dart';
 import 'package:meus_filmes/ui/home/home_screen.dart';
 import 'package:meus_filmes/widgets/separator_widget.dart';
@@ -62,6 +64,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final presenter = Get.find<LoginPresenter>();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
-import '../model/movie.dart';
+import 'package:meus_filmes/domain/entities/movie_entity.dart';
 
 class MovieItemWidget extends StatelessWidget {
-  final Movie movie;
+  final MovieEntity movie;
 
   const MovieItemWidget({Key? key, required this.movie}) : super(key: key);
 
