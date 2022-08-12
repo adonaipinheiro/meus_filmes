@@ -33,7 +33,7 @@
     - widgets
 
 > ## Instalação
-<b>* PROJETO TESTANDO EM ANDROID *</b>
+<b>* PROJETO TESTADO EM ANDROID *</b>
 
 - Abrir arquivo main.dart e rodar a aplicação.
 - Basta criar uma conta (o login será feito automáticamente) e a lista lista dos melhores filmes aparecerá para você.
