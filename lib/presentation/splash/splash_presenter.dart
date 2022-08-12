@@ -12,16 +12,14 @@ class SplashPresenter extends GetxController {
   CheckUser checkUser;
 
   void checkUserStatus() {
-    print('deu aqui');
-
     User? user = checkUser.execute();
 
     print(user);
 
     if (user != null) {
-      Get.offAndToNamed(LoginScreen.id);
-    } else {
       Get.offAndToNamed(HomeScreen.id);
+    } else {
+      Get.offAndToNamed(LoginScreen.id);
     }
   }
 }

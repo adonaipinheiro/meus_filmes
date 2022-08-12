@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:meus_filmes/domain/entities/movie_entity.dart';
 import 'package:meus_filmes/domain/usecases/home/fetch_popular_movies.dart';
 import 'package:meus_filmes/domain/usecases/home/sign_out.dart';
-import 'package:meus_filmes/screens/splash_screen.dart';
+import 'package:meus_filmes/ui/splash/splash_screen.dart';
 
 class HomePresenter extends GetxController {
   HomePresenter({

@@ -1,12 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:meus_filmes/presentation/login/login_presenter.dart';
-import 'package:meus_filmes/screens/signup_screen.dart';
-import 'package:meus_filmes/ui/home/home_screen.dart';
-import 'package:meus_filmes/widgets/separator_widget.dart';
-import 'package:meus_filmes/widgets/text_input_custom.dart';
+import 'package:meus_filmes/ui/widgets/separator_widget.dart';
+import 'package:meus_filmes/ui/widgets/text_input_custom.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = '/login';
@@ -18,34 +15,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final presenter = Get.find<LoginPresenter>();
   late TextEditingController _emailController;
   late TextEditingController _passController;
 
-  void goToSignUp() {
-    Navigator.pushNamed(context, SignUpScreen.id);
-  }
-
-  void signInWithEmailAndPass() async {
-    try {
-      UserCredential _ = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _emailController.text.toString(),
-          password: _passController.text.toString());
-      Navigator.pushReplacementNamed(context, HomeScreen.id);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found' || e.code == 'wrong-password') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Usuário ou senha incorretos'),
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Algo deu errado'),
-          ),
-        );
-      }
-    }
+  void _signInWithEmailAndPass() {
+    presenter.onLoginWithEmail(
+        _emailController.text.toString(), _passController.text.toString());
   }
 
   @override
@@ -64,7 +40,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final presenter = Get.find<LoginPresenter>();
+    presenter.showLoginFailed.listen((show) {
+      if (show) {
+        presenter.showLoginFailed.value = false;
+        Get.snackbar(
+          'Atenção',
+          'Usuário ou senha incorretos',
+          snackPosition: SnackPosition.BOTTOM,
+          snackStyle: SnackStyle.FLOATING,
+        );
+      }
+    });
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -78,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'lib/images/logo.png',
+                    'lib/ui/images/logo.png',
                     width: 150,
                   ),
                   Text(
@@ -109,9 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       fixedSize: const Size.fromWidth(double.maxFinite),
                       textStyle: const TextStyle(fontSize: 16),
                     ),
-                    onPressed: () {
-                      signInWithEmailAndPass();
-                    },
+                    onPressed: _signInWithEmailAndPass,
                     child: const Text('Entrar'),
                   ),
                   const SizedBox(height: 16),
@@ -124,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     onPressed: () {
-                      goToSignUp();
+                      presenter.goToSignUp();
                     },
                     child: const Text('Não possui conta? Cadastre-se'),
                   )

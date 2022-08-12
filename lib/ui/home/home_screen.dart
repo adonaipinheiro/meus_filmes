@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:meus_filmes/presentation/home/home_presenter.dart';
-import 'package:meus_filmes/widgets/movie_item_widget.dart';
+import 'package:meus_filmes/ui/widgets/movie_item_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String id = '/home';

@@ -1,11 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:meus_filmes/screens/login_screen.dart';
-import 'package:meus_filmes/screens/splash_screen.dart';
-import 'package:meus_filmes/widgets/separator_widget.dart';
-import 'package:meus_filmes/widgets/text_input_custom.dart';
+import 'package:meus_filmes/presentation/signup/signup_presenter.dart';
+import 'package:meus_filmes/ui/widgets/separator_widget.dart';
+import 'package:meus_filmes/ui/widgets/text_input_custom.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String id = '/signup';
@@ -17,15 +15,13 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final presenter = Get.find<SignUpPresenter>();
+
   late TextEditingController _emailController;
   late TextEditingController _nameController;
   late TextEditingController _repPassController;
   late TextEditingController _passController;
   bool checkPass = true;
-
-  void _goToLogin(BuildContext context) {
-    Navigator.pushReplacementNamed(context, LoginScreen.id);
-  }
 
   void _checkPassFunc() {
     if (_passController.text != _repPassController.text) {
@@ -36,44 +32,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       setState(() {
         checkPass = true;
       });
-    }
-  }
-
-  Future<void> _createUserWithEmailAndPass(BuildContext context) async {
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
-
-    try {
-      UserCredential userInfo = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-              email: _emailController.text, password: _passController.text);
-
-      users.doc(userInfo.user?.uid).set({
-        'full_name': _nameController.text,
-        'email': _emailController.text,
-        'uuid': userInfo.user?.uid
-      });
-
-      Navigator.pushReplacementNamed(context, SplashScreen.id);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Senha muito fraca'),
-          ),
-        );
-      } else if (e.code == 'email-already-in-use') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('E-mail já cadastrado'),
-          ),
-        );
-      }
-    } catch (_) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Algo deu errado'),
-        ),
-      );
     }
   }
 
@@ -97,6 +55,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    presenter.showLoginFailed.listen((show) {
+      if (show) {
+        presenter.showLoginFailed.value = false;
+        Get.snackbar(
+          'Atenção',
+          'Dados incompletos',
+          snackPosition: SnackPosition.BOTTOM,
+          snackStyle: SnackStyle.FLOATING,
+        );
+      }
+    });
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -109,7 +79,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'lib/images/logo.png',
+                    'lib/ui/images/logo.png',
                     width: 150,
                   ),
                   Text(
@@ -170,7 +140,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       textStyle: const TextStyle(fontSize: 16),
                     ),
                     onPressed: () {
-                      _createUserWithEmailAndPass(context);
+                      presenter.onRegisterWithEmail(_emailController.text,
+                          _passController.text, _nameController.text);
                     },
                     child: const Text('Cadastrar'),
                   ),
@@ -184,7 +155,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     onPressed: () {
-                      _goToLogin(context);
+                      presenter.goToLogin();
                     },
                     child: const Text('Já possui conta? Entrar'),
                   )
