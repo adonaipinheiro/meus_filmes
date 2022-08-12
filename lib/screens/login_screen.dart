@@ -1,10 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:meus_filmes/screens/home_screen.dart';
+import 'package:meus_filmes/screens/signup_screen.dart';
 import 'package:meus_filmes/widgets/separator_widget.dart';
 import 'package:meus_filmes/widgets/text_input_custom.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const String id = '/login';
+
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
@@ -16,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController _passController;
 
   void goToSignUp() {
-    Navigator.pushNamed(context, '/signup');
+    Navigator.pushNamed(context, SignUpScreen.id);
   }
 
   void signInWithEmailAndPass() async {
@@ -24,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
       UserCredential _ = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text.toString(),
           password: _passController.text.toString());
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, HomeScreen.id);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found' || e.code == 'wrong-password') {
         ScaffoldMessenger.of(context).showSnackBar(

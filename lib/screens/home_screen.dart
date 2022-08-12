@@ -5,9 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:meus_filmes/model/movie.dart';
 import 'package:http/http.dart' as http;
+import 'package:meus_filmes/screens/splash_screen.dart';
 import 'package:meus_filmes/widgets/movie_item_widget.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const String id = '/home';
+
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -20,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _signOut(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signOut();
-      Navigator.pushReplacementNamed(context, '/');
+      Navigator.pushReplacementNamed(context, SplashScreen.id);
     } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

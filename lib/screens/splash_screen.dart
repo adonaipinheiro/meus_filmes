@@ -1,8 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:meus_filmes/screens/home_screen.dart';
+import 'package:meus_filmes/screens/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
+  static const String id = '/splash';
+
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
@@ -14,9 +18,9 @@ class _SplashScreenState extends State<SplashScreen> {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, HomeScreen.id);
     } else {
-      Navigator.pushReplacementNamed(context, '/login');
+      Navigator.pushReplacementNamed(context, LoginScreen.id);
     }
   }
 

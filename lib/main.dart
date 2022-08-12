@@ -27,12 +27,12 @@ class MeusFilmes extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Melhores Filmes',
-      initialRoute: '/',
+      initialRoute: SplashScreen.id,
       routes: {
-        '/': (context) => const SplashScreen(),
-        '/login': (context) => const LoginScreen(),
-        '/signup': (context) => const SignUpScreen(),
-        '/home': (context) => const HomeScreen(),
+        SplashScreen.id: (context) => const SplashScreen(),
+        LoginScreen.id: (context) => const LoginScreen(),
+        SignUpScreen.id: (context) => const SignUpScreen(),
+        HomeScreen.id: (context) => const HomeScreen(),
       },
     );
   }

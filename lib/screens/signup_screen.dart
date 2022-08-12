@@ -2,10 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:meus_filmes/screens/login_screen.dart';
+import 'package:meus_filmes/screens/splash_screen.dart';
 import 'package:meus_filmes/widgets/separator_widget.dart';
 import 'package:meus_filmes/widgets/text_input_custom.dart';
 
 class SignUpScreen extends StatefulWidget {
+  static const String id = '/signup';
+
   const SignUpScreen({Key? key}) : super(key: key);
 
   @override
@@ -20,7 +24,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool checkPass = true;
 
   void _goToLogin(BuildContext context) {
-    Navigator.pushReplacementNamed(context, '/login');
+    Navigator.pushReplacementNamed(context, LoginScreen.id);
   }
 
   void _checkPassFunc() {
@@ -49,7 +53,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         'uuid': userInfo.user?.uid
       });
 
-      Navigator.pushReplacementNamed(context, '/');
+      Navigator.pushReplacementNamed(context, SplashScreen.id);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         ScaffoldMessenger.of(context).showSnackBar(
