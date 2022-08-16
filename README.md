@@ -1,5 +1,8 @@
 > # Melhores filmes
 
+> Proposta
+A aplicação consiste em Logar um usuário no Firebase, e listar os melhores filmes atuais.
+
 > Aplicação composta por 4 telas.
 
 - SplashScreen
